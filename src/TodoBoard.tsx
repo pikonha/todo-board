@@ -1,61 +1,63 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import useTodos, { Todo, TODO_STATUS } from "./useTodo";
+import useTodos, { Task, TASK_STATUS } from "./useTodo";
 
-const TodoItem: React.FC<Todo> = ({ description, status }: Todo) => {
+const TaskItem: React.FC<Task> = ({ description, status }: Task) => {
   return (
-    <TodoItemContainer>
-      <TodoItemHeader>
-        <TodoItemStatus isDone={status === TODO_STATUS.DONE} />
-      </TodoItemHeader>
-      <TodoItemContent>{description}</TodoItemContent>
-    </TodoItemContainer>
+    <TaskItemContainer>
+      <TaskItemHeader>
+        <TaskItemStatus isDone={status === TASK_STATUS.DONE} />
+      </TaskItemHeader>
+      <TaskItemContent>{description}</TaskItemContent>
+    </TaskItemContainer>
   );
 };
 
 const TodoBoard: React.FC = () => {
-  const { todos } = useTodos();
+  const { tasks } = useTodos();
+
+  console.log(tasks);
 
   return (
     <Container>
       <Content>
         <div>
           <h3>Pending</h3>
-          {todos
-            .filter((todo) => todo.status === TODO_STATUS.PENDING)
-            .map((todo) => (
-              <TodoItem
-                key={todo.id}
-                id={todo.id}
-                description={todo.description}
-                status={todo.status}
+          {tasks
+            .filter((task) => task.status === TASK_STATUS.PENDING)
+            .map((task) => (
+              <TaskItem
+                key={task.id}
+                id={task.id}
+                description={task.description}
+                status={task.status}
               />
             ))}
         </div>
         <div>
           <h3>Doing</h3>
-          {todos
-            .filter((todo) => todo.status === TODO_STATUS.DOING)
-            .map((todo) => (
-              <TodoItem
-                key={todo.id}
-                id={todo.id}
-                description={todo.description}
-                status={todo.status}
+          {tasks
+            .filter((task) => task.status === TASK_STATUS.DOING)
+            .map((task) => (
+              <TaskItem
+                key={task.id}
+                id={task.id}
+                description={task.description}
+                status={task.status}
               />
             ))}
         </div>
         <div>
           <h3>Done</h3>
-          {todos
-            .filter((todo) => todo.status === TODO_STATUS.DONE)
-            .map((todo) => (
-              <TodoItem
-                key={todo.id}
-                id={todo.id}
-                description={todo.description}
-                status={todo.status}
+          {tasks
+            .filter((task) => task.status === TASK_STATUS.DONE)
+            .map((task) => (
+              <TaskItem
+                key={task.id}
+                id={task.id}
+                description={task.description}
+                status={task.status}
               />
             ))}
         </div>
@@ -93,7 +95,7 @@ const Content = styled.div`
   }
 `;
 
-const TodoItemContainer = styled.div`
+const TaskItemContainer = styled.div`
   flex: 1 0 300px;
   display: flex;
   flex-direction: column;
@@ -103,7 +105,7 @@ const TodoItemContainer = styled.div`
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 `;
 
-const TodoItemHeader = styled.div`
+const TaskItemHeader = styled.div`
   display: flex;
   justify-content: space-between;
   color: #595959;
@@ -112,7 +114,7 @@ const TodoItemHeader = styled.div`
   font-size: 16px;
 `;
 
-const TodoItemStatus = styled.div<{ isDone: boolean }>`
+const TaskItemStatus = styled.div<{ isDone: boolean }>`
   height: 20px;
   width: 20px;
   background-color: ${({ isDone }) =>
@@ -121,7 +123,7 @@ const TodoItemStatus = styled.div<{ isDone: boolean }>`
   display: inline-block;
 `;
 
-const TodoItemContent = styled.div`
+const TaskItemContent = styled.div`
   margin-top: 1rem;
   color: rgba(89, 89, 89, 0.75);
 `;

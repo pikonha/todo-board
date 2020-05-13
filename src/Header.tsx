@@ -6,12 +6,13 @@ import useTodo from "./useTodo";
 const Header: React.FC = () => {
   const [description, descriptionSet] = useState("");
 
-  const { addTodo } = useTodo();
+  const { addTask } = useTodo();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    addTodo({ description });
+    addTask({ description });
+    descriptionSet("");
   }
 
   return (
